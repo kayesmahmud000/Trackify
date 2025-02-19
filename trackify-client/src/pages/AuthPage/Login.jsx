@@ -1,7 +1,25 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import GoogleLogin from "./GoogleLogin";
+import { useContext } from "react";
+import authContext from "../../context/authContext";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm()
+    const {userLogin}=useContext(authContext)
+    const navigate= useNavigate()
+    const onSubmit = async(data) =>{
+        const email= data?.email
+        const password= data?.password
+
+        console.log( email, password)
+        try{
+            await userLogin(email, password)
+            navigate('/main')
+        }catch{
+            //
+        }
+    }
     return (
         <div className='flex justify-center items-center min-h-screen '>
         <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-200 text-gray-900'>
@@ -12,7 +30,7 @@ const Login = () => {
                 </p>
             </div>
             <form
-              
+              onSubmit={handleSubmit(onSubmit)}
                 noValidate=''
                 action=''
                 className='space-y-6 ng-untouched ng-pristine ng-valid'
@@ -25,11 +43,12 @@ const Login = () => {
                         <input
                             type='email'
                             name='email'
+                            {...register("email", { required: true, })}
                             id='email'
                             placeholder='Enter Your Email Here'
                             className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-[#1e172b] bg-gray-200 text-gray-900'
                             data-temp-mail-org='0'
-                        />
+                        /> {errors.email && <span className='text-red-400 text-xs'> email required</span>}
                         
                     </div>
                     <div>
@@ -40,10 +59,21 @@ const Login = () => {
                         </div>
                         <input
                             type="password"
+                            {...register('password', {
+                                required: 'Password is required',
+                                minLength: {
+                                    value: 6,
+                                    message: 'Password must be at least 6 characters long',
+                                },
+                                validate: {
+                                    hasCapitalLetter: (value) => /[A-Z]/.test(value) || 'Password must contain at least one capital letter',
+                                    hasSpecialCharacter: (value) => /[!@#$%^&*(),.?":{}|<>]/.test(value) || 'Password must contain at least one special character',
+                                },
+                            })}
                             placeholder="Enter your password"
                             className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-[#1e172b] bg-gray-200 text-gray-900"
                         />
-
+{errors.password && <span className="text-red-400 text-xs">{errors.password.message}</span>}
                     </div>
                 </div>
 
