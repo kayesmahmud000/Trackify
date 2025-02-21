@@ -1,10 +1,15 @@
 import { useContext } from "react";
 import authContext from "../context/authContext";
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 
 const Navbar = () => {
     const {user, logout}=useContext(authContext)
+
+    const link = <>
+    <li><NavLink className={({ isActive }) => isActive ? "text-white underline mb-3 px-3 py-2  text-sm lg:text-lg" : " mb-4 px-3 text-sm lg:text-lg"} to={"/main"}>Task</NavLink></li>
+    <li><NavLink className={({ isActive }) => isActive ? "text-white underline mb-3 px-3 py-2  text-sm lg:text-lg" : " mb-4 px-3 text-sm lg:text-lg"} to={"/main/addTask"}>Add Task</NavLink></li>
+</>
 const navigate=useNavigate()
     const handleLogout= ()=>{
         logout()
@@ -26,7 +31,11 @@ const navigate=useNavigate()
     <h1 className="btn btn-ghost text-3xl">Trackify</h1>
   </div>
   <div className="navbar-center hidden lg:flex">
-   
+  <ul
+                            tabIndex={0}
+                            className="menu menu-sm dropdown-content bg-[#4DA1A9] bg-opacity-50 rounded-box z-[10]  p-2 w-32 shadow">
+                            {link}
+                        </ul>
   </div>
   <div className="navbar-end">
     {

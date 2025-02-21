@@ -5,6 +5,7 @@ import AuthLayout from "./layout/AuthLayout"
 import Login from "./pages/AuthPage/Login"
 import Register from "./pages/AuthPage/Register"
 import PrivateRoute from "./route/PrivateRoute"
+import AddTask from "./pages/AddTask/AddTask"
 
 function App() {
   
@@ -19,6 +20,7 @@ function App() {
       </Route>
       <Route path="/main" element={<PrivateRoute><MainLayout/></PrivateRoute>}>
       <Route index element={<Home></Home>}></Route>
+      <Route path="/main/addTask" element={<AddTask/>}></Route>
 
       </Route>
      </Routes>
