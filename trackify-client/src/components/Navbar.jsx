@@ -31,9 +31,7 @@ const navigate=useNavigate()
     <h1 className="btn btn-ghost text-3xl">Trackify</h1>
   </div>
   <div className="navbar-center hidden lg:flex">
-  <ul
-                            tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-[#4DA1A9] bg-opacity-50 rounded-box z-[10]  p-2 w-32 shadow">
+  <ul className="flax ">
                             {link}
                         </ul>
   </div>

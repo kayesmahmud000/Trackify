@@ -7,7 +7,7 @@ export const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
-  const socket = io("http://localhost:5000");
+  const socket = io("https://trackify-server-delta.vercel.app");
 
   useEffect(() => {
     fetchTasks();
@@ -20,20 +20,20 @@ export const TaskProvider = ({ children }) => {
   }, []);
 
   const fetchTasks = async () => {
-    const res = await axios.get("http://localhost:5000/tasks");
+    const res = await axios.get("https://trackify-server-delta.vercel.app/tasks");
     setTasks(res.data);
   };
 
   const addTask = async (task) => {
-    await axios.post("http://localhost:5000/tasks", task);
+    await axios.post("https://trackify-server-delta.vercel.app/tasks", task);
   };
 
   const updateTask = async (id, updatedData) => {
-    await axios.put(`http://localhost:5000/tasks/${id}`, updatedData);
+    await axios.put(`https://trackify-server-delta.vercel.app/tasks/${id}`, updatedData);
   };
 
   const deleteTask = async (id) => {
-    await axios.delete(`http://localhost:5000/tasks/${id}`);
+    await axios.delete(`https://trackify-server-delta.vercel.app/tasks/${id}`);
   };
 
   return (

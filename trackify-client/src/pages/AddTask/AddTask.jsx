@@ -14,7 +14,7 @@ const AddTask = () => {
     const newTask = { title, description, category };
 
     try {
-      const response = await fetch("http://localhost:5000/tasks", {
+      const response = await fetch("https://trackify-server-delta.vercel.app/tasks", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newTask),
@@ -37,7 +37,7 @@ const AddTask = () => {
   };
 
   return (
-    <div>
+    <div className="max-w-2xl mx-auto">
       <form onSubmit={handleSubmit} className="p-4 bg-gray-100 rounded-lg">
         <h2 className="text-lg font-bold mb-2">Add New Task</h2>
         <input
